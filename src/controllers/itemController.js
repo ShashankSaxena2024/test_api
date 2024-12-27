@@ -70,7 +70,7 @@ const deleteItem = async (req, res, next) => {
         console.log(error);
         res.status(500).json({
             status: '500',
-            msg: 'Something went wrong',
+            msg: error,
             result: '',
             token: ''
         }) 
