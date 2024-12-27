@@ -59,13 +59,31 @@ const updateItem = async (req, res, next) => {
 const deleteItem = async (req, res, next) => {
     const id = req.params.id;
     try {
-        const item = await itemModel.findByIdAndRemove(id);
-        res.status(202).json({
-            status: '202',
-            msg: 'deleted',
-            result: '',
-            token: ''
-        })
+        // const item = await itemModel.findByIdAndRemove(id);
+        const item = await itemModel.findByIdAndRemove(id, function (err, docs) {
+            if (err) {
+                res.status(500).json({
+                    status: '500',
+                    msg: err,
+                    result: '',
+                    token: ''
+                }) 
+            }
+            else {
+                res.status(202).json({
+                    status: '202',
+                    msg: 'deleted',
+                    result: '',
+                    token: ''
+                })
+            }
+        });;
+        // res.status(202).json({
+        //     status: '202',
+        //     msg: 'deleted',
+        //     result: '',
+        //     token: ''
+        // })
     } catch (error) {
         console.log(error);
         res.status(500).json({
